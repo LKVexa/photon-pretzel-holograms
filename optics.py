@@ -13,7 +13,7 @@ import warnings
 import numpy as np
 from PIL import Image, TiffImagePlugin
 
-VERSION = "0.3.0"
+VERSION = "0.4.0"
 PROFILE = "photon-pretzel/off-axis/1"
 MEANING = "intensity = stored_uint16 * scale / 65535"
 MAX_FILE_BYTES = 8 * 1024 * 1024
@@ -316,3 +316,4 @@ def read_carrier(source):
 def replay_carrier(source, output):
     import raster_vm as vm
     return vm.replay(source, output)
+

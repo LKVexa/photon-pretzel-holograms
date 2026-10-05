@@ -6,6 +6,7 @@ import base64
 import binascii
 import copy
 import hashlib
+import gzip
 import io
 import json
 from pathlib import Path
@@ -19,10 +20,11 @@ from PIL import Image, ImageDraw, ImageFont
 import optics as o
 
 SCHEMA = "photon-pretzel/array-program/1"
-MAGIC = b"PPHVM003"
+MAGIC = b"PPHVM004"
+ENVELOPE = "photon-pretzel/executable-image/2"
 SIZE = (768, 768)
 DATA_Y, CELL = 384, 2
-MAX_PACKET = 56000
+MAX_PACKET = 72000
 MAX_NODES, MAX_FRAMES = 24, 32
 MAX_MAGNITUDE = 1e12
 OP_FIELDS = {
@@ -163,10 +165,56 @@ def array_digest(array):
     return o.sha256(np.asarray(array,dtype="<c16").tobytes())
 
 
-def encode(image, program):
+def runtime_payload():
+    return json.loads((Path(__file__).parent/"runtime-payload.json").read_text(encoding="ascii"))
+
+
+def validate_runtime(runtime):
+    if (type(runtime) is not dict or set(runtime) != {"format","sha256","data"}
+            or runtime["format"] != "dotnet-il/gzip-base64"
+            or runtime["sha256"] != runtime_payload()["sha256"]
+            or type(runtime["data"]) is not str or len(runtime["data"]) > 24000):
+        reject("Runtime is not approved by this version")
+    try:
+        compressed = base64.b64decode(runtime["data"],validate=True)
+        if base64.b64encode(compressed).decode("ascii") != runtime["data"]: reject("Noncanonical runtime base64")
+        with gzip.GzipFile(fileobj=io.BytesIO(compressed)) as stream:
+            module = stream.read(131073)
+        if len(module)>131072 or o.sha256(module)!=runtime["sha256"]: reject("Runtime module size or checksum mismatch")
+    except (OSError,ValueError,EOFError,binascii.Error) as exc:
+        raise o.Rejected("Invalid runtime module") from exc
+    return runtime
+
+
+def envelope(program,runtime=None):
+    validate(program)
+    return {"schema":ENVELOPE,"program_json":o.canonical(program).decode("ascii"),
+            "runtime":validate_runtime(runtime_payload() if runtime is None else runtime)}
+
+
+def validate_envelope(payload):
+    if (type(payload) is not dict or set(payload)!={"schema","program_json","runtime"}
+            or payload["schema"]!=ENVELOPE or type(payload["program_json"]) is not str
+            or len(payload["program_json"])>56000): reject("Unsupported executable image envelope")
+    validate_runtime(payload["runtime"])
+    def unique(pairs):
+        result={}
+        for key,value in pairs:
+            if key in result: reject("Duplicate program fields")
+            result[key]=value
+        return result
+    try: program=json.loads(payload["program_json"],object_pairs_hook=unique)
+    except (ValueError,TypeError,RecursionError) as exc: raise o.Rejected("Invalid image program") from exc
+    return validate(program)
+
+
+def encode(image, program, runtime=None, payload=None):
     validate(program)
     if image.size != SIZE: reject("Wrong executable carrier dimensions")
-    raw = o.canonical(program)
+    payload = envelope(program,runtime) if payload is None else payload
+    if validate_envelope(payload)!=program: reject("Envelope program differs")
+    raw = o.canonical(payload)
+    if len(raw)>MAX_PACKET: reject("Runtime and program exceed image byte budget")
     packet = MAGIC + struct.pack(">I",len(raw)) + hashlib.sha256(raw).digest() + raw
     columns = SIZE[0]//CELL
     rows = (len(packet)+columns-1)//columns
@@ -178,7 +226,7 @@ def encode(image, program):
     return result
 
 
-def decode(image):
+def decode_envelope(image):
     if image.size != SIZE: reject("Wrong executable carrier dimensions")
     rgb = np.asarray(image.convert("RGB"))
     columns = SIZE[0]//CELL
@@ -190,20 +238,25 @@ def decode(image):
         if not np.all(cells == cells[:,:1]): reject("Executable cells damaged or resampled")
         return cells[:,0].tobytes()
     header = take(44)
-    if header[:8] != MAGIC: reject("Not a v0.3 executable optical carrier")
+    if header[:8] != MAGIC: reject("Not a v0.4 runtime-bearing optical carrier")
     length = struct.unpack(">I",header[8:12])[0]
     if not 1 <= length <= MAX_PACKET: reject("Executable payload length limit exceeded")
     raw = take(44+length)[44:]
     if hashlib.sha256(raw).digest() != header[12:44]: reject("Executable packet checksum mismatch")
     try:
-        program = json.loads(raw)
-        if o.canonical(program) != raw: reject("Noncanonical executable JSON")
+        payload = json.loads(raw)
+        if o.canonical(payload) != raw: reject("Noncanonical executable JSON")
     except (ValueError,TypeError,RecursionError,UnicodeError,OverflowError) as exc:
         raise o.Rejected("Malformed executable program") from exc
-    return validate(program)
+    validate_envelope(payload)
+    return payload
 
 
-def read(path):
+def decode(image):
+    return validate_envelope(decode_envelope(image))
+
+
+def read_envelope(path):
     raw = o.read_snapshot(path)
     program, count = None, 0
     try:
@@ -216,7 +269,7 @@ def read(path):
                     try: image.seek(index)
                     except EOFError: break
                     if index == MAX_FRAMES: reject("Executable frame limit exceeded")
-                    recovered = decode(image)
+                    recovered = decode_envelope(image)
                     if program is not None and recovered != program: reject("Frames carry different executable programs")
                     program,count = recovered,count+1
     except o.Rejected: raise
@@ -227,10 +280,15 @@ def read(path):
     return program,o.sha256(raw),count
 
 
-def render(program, result, step=0):
+def read(path):
+    payload,digest,count=read_envelope(path)
+    return validate_envelope(payload),digest,count
+
+
+def render(program, result, step=0, runtime=None, payload=None):
     frame = Image.new("L",SIZE,20)
     draw = ImageDraw.Draw(frame)
-    draw.text((24,14),"PHOTON PRETZEL / PIXEL PROGRAM",font=ImageFont.load_default(size=24),fill=255)
+    draw.text((24,14),"PHOTON PRETZEL / RUNTIME IN PIXELS",font=ImageFont.load_default(size=24),fill=255)
     sensor = np.frombuffer(base64.b64decode(program["input"]["data"]),dtype="<u2").reshape(128,128)
     display = Image.fromarray(np.round(np.clip(np.abs(result)**2,0,1)*255).astype(np.uint8))
     for tile, x in ((o.gray(sensor).convert("L"),48),(display,448)):
@@ -238,16 +296,17 @@ def render(program, result, step=0):
     draw.text((48,320),"Embedded sensor samples",font=ImageFont.load_default(size=16),fill=220)
     draw.text((448,320),"|output|^2 (0..1 clipped)",font=ImageFont.load_default(size=16),fill=220)
     draw.text((24,349),f"{len(program['nodes'])} pixel-carried operators | refresh {step} | host CPU interpreter",fill=220)
-    draw.text((24,367),"Program + exact samples below. Load either TIFF or GIF to execute.",fill=220)
-    return encode(frame,program)
+    draw.text((24,367),"Runtime + program + exact samples below. Load TIFF or GIF in the reader.",fill=220)
+    return encode(frame,program,runtime,payload)
 
 
-def write_results(folder, program, refresh=0):
+def write_results(folder, program, refresh=0, runtime=None, payload=None):
     """Encode, decode and execute again; displayed output is freshly raster-derived."""
-    initial = render(program,np.zeros((128,128)),refresh)
+    payload = envelope(program,runtime) if payload is None else payload
+    initial = render(program,np.zeros((128,128)),refresh,payload=payload)
     recovered = decode(initial)
     result, trace = execute(recovered)
-    frames = [render(recovered,result,refresh+i) for i in range(2)]
+    frames = [render(recovered,result,refresh+i,payload=payload) for i in range(2)]
     gif_frames = [image.convert("P") for image in frames]
     # L -> P retains the exact 256-level grayscale palette without dithering.
     gif_frames[0].save(folder/"processing.gif",save_all=True,append_images=gif_frames[1:],
@@ -265,15 +324,17 @@ def write_results(folder, program, refresh=0):
     o.write_json(folder/"program.json",program)
     return result,{"program_sha256":o.sha256(o.canonical(program)),"result_sha256":array_digest(result),
                    "instruction_count":len(program["nodes"]),"trace":trace,"carriers":exports,
-                   "computation_location":"host CPU bounded array interpreter"}
+                   "runtime_sha256":payload["runtime"]["sha256"],
+                   "computation_location":"NumPy independent reference interpreter; packaged C# reader executes pixel-carried module"}
 
 
 def replay(source,output):
-    program,digest,count = read(source)
+    payload,digest,count = read_envelope(source)
+    program=validate_envelope(payload)
     # Validate and execute before creating an output destination.
     execute(program)
     folder = o.create_output(output)
-    _,execution = write_results(folder,program,1)
+    _,execution = write_results(folder,program,1,payload=payload)
     report = {"version":o.VERSION,"operation":"replay-carrier","source_sha256":digest,
               "source_frames_checked":count,"source_file_preserved":True,"execution":execution,
               "simulation_only":True,"quality_against_unknown_target":"NOT_ASSESSED"}
@@ -282,7 +343,8 @@ def replay(source,output):
 
 
 def edit_gain(source,output,gain):
-    program,digest,count = read(source)
+    payload,digest,count = read_envelope(source)
+    program=validate_envelope(payload)
     changed = copy.deepcopy(program)
     if not number(gain,16): reject("Gain must be finite and within +/-16")
     used = {node["id"] for node in changed["nodes"]}
@@ -293,7 +355,7 @@ def edit_gain(source,output,gain):
     original,_ = execute(program)
     edited,_ = execute(changed)
     folder = o.create_output(output)
-    _,execution = write_results(folder,changed)
+    _,execution = write_results(folder,changed,runtime=payload["runtime"])
     report = {"version":o.VERSION,"operation":"edit-carrier","source_sha256":digest,
               "source_frames_checked":count,"source_file_preserved":True,"edit":{"append_scale":gain},
               "runtime_unchanged":True,"original_result_sha256":array_digest(original),

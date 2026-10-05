@@ -7,3 +7,7 @@ results/
 dist/
 build/
 *.egg-info/
+user_runs/
+releases/
+**/bin/
+**/obj/

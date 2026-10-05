@@ -1,11 +1,15 @@
 # SPDX-License-Identifier: GPL-3.0-only
 """Re-run project tests and replace the three explicitly named evidence reports."""
 import io
+import base64
 import json
+import os
 from pathlib import Path
 import platform
 import time
 import tempfile
+import shutil
+import subprocess
 import unittest
 
 import numpy as np
@@ -33,7 +37,10 @@ def main():
                "scope": "Local software, numerical model, reader and CLI tests; no physical or full-workstream qualification",
                "source_sha256": {name: o.sha256((root/name).read_bytes())
                                   for name in ("optics.py", "raster_vm.py", "run.py", "tests/test_optics.py",
-                                               "tests/test_raster_vm.py", "verify.py")}}
+                                               "tests/test_raster_vm.py", "tests/test_native.py", "tests/test_package_release.py",
+                                               "dotnet/ArrayRuntime/Machine.cs", "dotnet/OpticalPlayer/Carrier.cs",
+                                               "dotnet/OpticalPlayer/Program.cs", "dotnet/OpticalPlayer/ImagePreflight.cs",
+                                               "package_release.py", "verify.py")}}
     # Successful evidence contains relative source identities and no personal machine paths.
     log = capture.getvalue().replace(str(root), "<repository>")
     (evidence/"test_log.txt").write_text(log, encoding="utf-8")
@@ -42,12 +49,14 @@ def main():
         print(json.dumps(summary, indent=2))
         return 1
     metrics = []
+    native_programs = []
     for scene in ("training", "holdout"):
         for z in (-.02, 0, .01, .02):
             params = {**o.PARAMS, "distance_m": z}
             target = o.target_field(scene)
             samples, metadata, _ = o.synthesize(target, params)
             program = vm.compile_reconstruction(samples,metadata)
+            native_programs.append(program)
             recovered,_ = vm.execute(vm.decode(vm.encode(Image.new("L",vm.SIZE),program)))
             metrics.append({"scene": scene, "distance_m": z,
                             "relative_complex_l2_error": float(np.linalg.norm(recovered-target)/np.linalg.norm(target))})
@@ -57,6 +66,26 @@ def main():
               "analytic_reference": "15 plane-wave cases: bins (0,0),(3,0),(2,-4), distances -0.02,-0.01,0,0.01,0.02 m",
               "physical_measurements": 0, "scope": "Discrete periodic scalar Fourier model"}
     (evidence/"numerical_results.json").write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8")
+    dotnet=os.environ.get("DOTNET") or shutil.which("dotnet")
+    native=subprocess.run([dotnet,str(root/"dotnet/RuntimeTests/bin/Release/net10.0/RuntimeTests.dll")],
+        input="".join(o.canonical(p).decode("ascii")+"\n" for p in native_programs),
+        capture_output=True,text=True,timeout=60,check=True)
+    rows=[json.loads(line) for line in native.stdout.splitlines()]
+    if len(rows)!=len(native_programs):raise ValueError("Native evidence result count differs")
+    cases=[]
+    for p,row,metric in zip(native_programs,rows,metrics):
+        if not row["ok"]:raise ValueError("Native reference calculation failed")
+        calculated=np.frombuffer(base64.b64decode(row["receipt"]["data"]),dtype="<c16").reshape(128,128)
+        reference,_=vm.execute(p)
+        np.testing.assert_allclose(calculated,reference,rtol=2e-10,atol=1e-8)
+        cases.append({"scene":metric["scene"],"distance_m":metric["distance_m"],
+                      "max_abs_error_against_numpy":float(np.max(np.abs(calculated-reference))),
+                      "native_result_sha256":row["receipt"]["sha256"]})
+    native_report={"version":o.VERSION,"module_sha256":vm.runtime_payload()["sha256"],
+                   "comparison":"C# radix-2 array machine against independent NumPy FFT interpreter",
+                   "tolerance":{"rtol":2e-10,"atol":1e-8},"cases":cases,"all_pass":True,
+                   "additional_test_suites":"15 analytic plane-wave cases and 20 random permitted programs in tests/test_native.py"}
+    (evidence/"native_numerical_results.json").write_text(json.dumps(native_report,indent=2)+"\n",encoding="utf-8")
     with tempfile.TemporaryDirectory() as temp:
         folder = Path(temp)
         generated = o.generate(folder/"generated")

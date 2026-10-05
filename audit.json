@@ -1,9 +1,9 @@
 {
   "schema": "photon-pretzel/audit/1",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "license": "GPL-3.0-only",
-  "scope": "Standalone optical and executable-image array-interpreter audit, bounded input hardening and local numerical/CLI/program-edit tests. No physical qualification, comprehensive security certification or full Penteract conformance.",
-  "baseline": "Optical kernel from TIFF/GIF Compute Lab 0.1.0 research demonstration; no private workflow archives or runtimes are included.",
+  "scope": "Bounded image-carried C# array runtime, native Windows reader, independent NumPy oracle, input hardening and extract-and-run packaging. No exhaustive security certification, physical qualification or full Penteract conformance.",
+  "baseline": "Optical kernel from TIFF/GIF Compute Lab research demo; historical v0.2/v0.3 assets preserved. The v0.4 runtime is built from included GPL source.",
   "findings": [
     {
       "id": "OPT-001",
@@ -57,7 +57,7 @@
       "id": "OPT-007",
       "severity": "medium",
       "finding": "A standalone extraction could accidentally retain local workspace paths or unrelated runtime dependencies.",
-      "fix": "Keep only optics code, portable CLI, requirements and generated assets. Receipts use relative names and byte hashes; no bundled runtime.",
+      "fix": "Portable source, relative evidence and isolated self-contained Windows package; source and upstream framework licenses included. Private runs, local paths, corpora, OCR binaries and unrelated runtimes excluded.",
       "status": "FIXED",
       "evidence": "README.md"
     },
@@ -100,6 +100,62 @@
       "fix": "Every GIF/TIFF frame carries the whole graph and sensor samples. Export decodes and executes each format and checks exact output. Tests replay refreshed and edited exports and alter embedded input without sidecars.",
       "status": "FIXED",
       "evidence": "tests/test_optics.py:test_executable_gif_tiff_every_frame_and_reexecution"
+    },
+    {
+      "id": "OPT-013",
+      "severity": "high",
+      "finding": "v0.3 carried program/data but depended on an external Python array interpreter.",
+      "fix": "Embed compiled generic C# ArrayRuntime module in pixels; pinned SHA-256 and bounded gzip expansion before Assembly.Load. No adjacent runtime DLL or host reconstruction fallback.",
+      "status": "FIXED",
+      "evidence": "tests/test_native.py:test_unapproved_corrupt_and_expansion_runtime_rejected"
+    },
+    {
+      "id": "OPT-014",
+      "severity": "high",
+      "finding": "A source ZIP was not a usable installed or portable application.",
+      "fix": "Self-contained Windows x64 release with default game image, Play.cmd, automatic GUI computation, source archive, licenses and manifest; packaged EXE tested with only Windows System32 on PATH.",
+      "status": "FIXED",
+      "evidence": "package_release.py:smoke"
+    },
+    {
+      "id": "OPT-015",
+      "severity": "high",
+      "finding": "Platform image parsing could encounter cycles, oversized frames or unbounded structures before payload verification.",
+      "fix": "One bounded regular-file snapshot; classic TIFF/GIF structural preflight before GDI+, 32-frame ceiling, dimension and offset checks, uniform grayscale cells and identical envelope in every frame.",
+      "status": "FIXED",
+      "evidence": "tests/test_native.py:test_preflight_malformed_cycles_dimensions_truncation_and_frames"
+    },
+    {
+      "id": "OPT-016",
+      "severity": "high",
+      "finding": "A new native FFT port could change propagation conventions or differ materially from the independent reference.",
+      "fix": "Compare eight optical scenes, 15 analytic plane waves and 20 random array programs against NumPy; typed malformed programs and growth limits also tested.",
+      "status": "FIXED",
+      "evidence": "tests/test_native.py:NativeArrayTests"
+    },
+    {
+      "id": "OPT-017",
+      "severity": "medium",
+      "finding": "GUI edits or exports could replace the runtime/program with hidden external computation or lose continuability.",
+      "fix": "Gain appends a pixel operator; run rereads current pixels; both exports must preserve full envelope and reproduce the exact native result. GUI smoke covers autostart, edit, three refreshes and reopening.",
+      "status": "FIXED",
+      "evidence": "tests/test_native.py:test_gui_autostart_edit_refresh_save_and_reopen"
+    },
+    {
+      "id": "OPT-018",
+      "severity": "medium",
+      "finding": "A release could omit source/notices, include a disk interpreter fallback, or silently require an installed framework.",
+      "fix": "Source allowlist, corresponding-source archive, upstream runtime license copies, framework declaration validation, forbidden ArrayRuntime.dll check, bounded exclusive ZIP creation and hash manifest.",
+      "status": "FIXED",
+      "evidence": "tests/test_package_release.py"
+    },
+    {
+      "id": "OPT-019",
+      "severity": "medium",
+      "finding": "Python and .NET JSON float formatting differs and could break unmodified program recovery.",
+      "fix": "Keep inner program JSON as an exact envelope string; canonicalize only the closed outer string envelope. Both runtimes validate typed program semantics and duplicate keys.",
+      "status": "FIXED",
+      "evidence": "tests/test_native.py:test_both_formats_native_output_reference_and_reopen"
     }
   ],
   "tests": {
@@ -107,15 +163,30 @@
     "summary": "evidence/test_results.json",
     "raw_log": "evidence/test_log.txt",
     "numerical_metrics": "evidence/numerical_results.json",
-    "executable_metrics": "evidence/executable_results.json"
+    "executable_metrics": "evidence/executable_results.json",
+    "native_tests": "tests/test_native.py",
+    "packaging_tests": "tests/test_package_release.py",
+    "native_packaged_execution": "evidence/packaged_execution.json",
+    "native_cross_language": "evidence/native_numerical_results.json"
   },
   "remaining_limits": [
-    "The synthetic reference is a fixed 128 by 128 periodic scalar optical model. The generic array interpreter admits bounded graph edits; edited programs do not inherit reconstruction accuracy claims.",
-    "No hardware, measured calibration, physical reconstruction or device-ready output.",
-    "Arbitrary valid TIFF targets have no ground-truth quality assessment.",
-    "Pillow remains an external parser dependency; no claim of exhaustive hostile-input proof.",
-    "Failed new runs can leave partial files in their new output directory; previous runs and source files are not replaced.",
-    "Local recorded execution is Windows/Python 3.12; other platform claims require their own observed CI results.",
-    "Historical v0.2 job carriers and old display-only baselines remain explicitly labeled; the v0.3 loader rejects their old payload format."
-  ]
+    "Fixed 128 by 128 periodic scalar model; edited graphs do not inherit optical-reference accuracy claims.",
+    "No optical hardware, measured calibration, physical reconstruction or device-ready output; no full workflow conformance claim.",
+    "Unknown valid targets have no ground-truth quality assessment.",
+    "GDI+ remains a platform image decoder after structural preflight. No exhaustive hostile-image proof.",
+    "Partial files can remain in a failed new output directory; existing output/source files are preserved.",
+    "The optional Python/NumPy reference path is external and uses runtime-payload.json for its hash; only the native packaged reader loads its interpreter module from pixels without sidecars.",
+    "The compatible reader and general .NET platform execute the embedded module on a CPU. An ordinary image viewer does not execute it.",
+    "Unknown or modified runtime modules are rejected; approving a new interpreter requires rebuilding the reader hash allowlist.",
+    "v0.3 and older image formats are retained as historical artifacts and rejected by the v0.4 carrier loader.",
+    "Local observed validation is Windows x64; Linux/macOS native UI execution is not claimed."
+  ],
+  "runtime": {
+    "format": "dotnet-il/gzip-base64",
+    "sha256": "6638cfed6fb7cc877b495d714b8437cc8d04d46cb5ab52eb4ba5f9d38c75e4a9",
+    "module_source": "dotnet/ArrayRuntime/Machine.cs",
+    "module_bytes": 15360,
+    "code_approval": "Build-time SHA-256 allowlist, not a signature",
+    "execution_location": "Host CPU; .NET platform bundled with Windows package"
+  }
 }
