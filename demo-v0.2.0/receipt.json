@@ -1,0 +1,21 @@
+{
+  "hologram_file": "hologram_uint16.tiff",
+  "hologram_sha256": "4abf674734e3baaebe359dcc5c7fa43e7df4e6fb000e71cf2cccb86ddf1efdce",
+  "operation": "generate",
+  "processing_carriers": {
+    "processing.gif": {
+      "all_frames_job_exact": true,
+      "sha256": "f14729f5bf662731e59a4f14b0e539df8854c8c9a236a1f471188891166b9bab"
+    },
+    "processing.tiff": {
+      "all_frames_job_exact": true,
+      "sha256": "aa7d5f10d00043218172c26fb57194484603ef187278e65146c5cfdd4df5ec5e"
+    }
+  },
+  "relative_complex_l2_error": 1.857534186601529e-05,
+  "sample_roundtrip_exact": true,
+  "scene": "training",
+  "simulation_only": true,
+  "threshold": 0.001,
+  "version": "0.2.0"
+}
