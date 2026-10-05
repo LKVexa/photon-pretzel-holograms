@@ -1,3 +1,17 @@
+test_closed_schema_rejects_hostile_operators_and_parameters (test_native.NativeArrayTests.test_closed_schema_rejects_hostile_operators_and_parameters) ... ok
+test_duplicate_json_members_and_depth_rejected (test_native.NativeArrayTests.test_duplicate_json_members_and_depth_rejected) ... ok
+test_fifteen_analytic_plane_waves (test_native.NativeArrayTests.test_fifteen_analytic_plane_waves) ... ok
+test_generic_operator_order_random_samples_and_mutations (test_native.NativeArrayTests.test_generic_operator_order_random_samples_and_mutations) ... ok
+test_result_growth_and_bad_sensor_rejected (test_native.NativeArrayTests.test_result_growth_and_bad_sensor_rejected) ... ok
+test_training_and_holdout_eight_optical_cases (test_native.NativeArrayTests.test_training_and_holdout_eight_optical_cases) ... ok
+test_both_formats_native_output_reference_and_reopen (test_native.NativePlayerTests.test_both_formats_native_output_reference_and_reopen) ... ok
+test_default_beside_executable_and_gif_fallback (test_native.NativePlayerTests.test_default_beside_executable_and_gif_fallback) ... ok
+test_existing_output_and_bad_cli_leave_source_unchanged (test_native.NativePlayerTests.test_existing_output_and_bad_cli_leave_source_unchanged) ... ok
+test_gain_edit_changes_pixel_program_not_runtime_and_exactly_halves_field (test_native.NativePlayerTests.test_gain_edit_changes_pixel_program_not_runtime_and_exactly_halves_field) ... ok
+test_gui_autostart_edit_refresh_save_and_reopen (test_native.NativePlayerTests.test_gui_autostart_edit_refresh_save_and_reopen) ... ok
+test_preflight_malformed_cycles_dimensions_truncation_and_frames (test_native.NativePlayerTests.test_preflight_malformed_cycles_dimensions_truncation_and_frames) ... ok
+test_unapproved_corrupt_and_expansion_runtime_rejected (test_native.NativePlayerTests.test_unapproved_corrupt_and_expansion_runtime_rejected) ... ok
+test_unknown_instruction_and_duplicates_cannot_reach_display (test_native.NativePlayerTests.test_unknown_instruction_and_duplicates_cannot_reach_display) ... ok
 test_analytic_plane_waves_both_directions_and_zero (test_optics.OpticalTests.test_analytic_plane_waves_both_directions_and_zero) ... ok
 test_cli_generate_inspect_reconstruct_and_error_exit (test_optics.OpticalTests.test_cli_generate_inspect_reconstruct_and_error_exit) ... ok
 test_executable_gif_tiff_every_frame_and_reexecution (test_optics.OpticalTests.test_executable_gif_tiff_every_frame_and_reexecution) ... ok
@@ -19,6 +33,18 @@ test_sample_and_metadata_tiff_roundtrip (test_optics.OpticalTests.test_sample_an
 test_training_and_holdout_quantized_reconstruction (test_optics.OpticalTests.test_training_and_holdout_quantized_reconstruction) ... ok
 test_zero_distance_exact_identity_and_copy (test_optics.OpticalTests.test_zero_distance_exact_identity_and_copy) ... ok
 test_zero_hologram_is_finite_without_quality_claim (test_optics.OpticalTests.test_zero_hologram_is_finite_without_quality_claim) ... ok
+test_archive_is_reproducible_and_preserves_existing_output (test_package_release.PackagingTests.test_archive_is_reproducible_and_preserves_existing_output) ... ok
+test_clean_environment_omits_installed_toolchains (test_package_release.PackagingTests.test_clean_environment_omits_installed_toolchains) ... ok
+test_file_count_and_bytes_are_bounded (test_package_release.PackagingTests.test_file_count_and_bytes_are_bounded) ... ok
+test_images_must_match_program_and_built_runtime (test_package_release.PackagingTests.test_images_must_match_program_and_built_runtime) ... ok
+test_manifest_detects_edits_and_extra_files (test_package_release.PackagingTests.test_manifest_detects_edits_and_extra_files) ... ok
+test_manifest_rejects_duplicate_and_traversal_entries (test_package_release.PackagingTests.test_manifest_rejects_duplicate_and_traversal_entries) ... ok
+test_nested_manifest_is_verified (test_package_release.PackagingTests.test_nested_manifest_is_verified) ... ok
+test_policy_denial_is_specific (test_package_release.PackagingTests.test_policy_denial_is_specific) ... ok
+test_publish_rejects_hidden_disk_interpreter (test_package_release.PackagingTests.test_publish_rejects_hidden_disk_interpreter) ... ok
+test_publish_requires_self_contained_frameworks (test_package_release.PackagingTests.test_publish_requires_self_contained_frameworks) ... ok
+test_source_archive_contains_corresponding_code_and_images (test_package_release.PackagingTests.test_source_archive_contains_corresponding_code_and_images) ... ok
+test_source_excludes_runs_caches_generated_payload_and_binary (test_package_release.PackagingTests.test_source_excludes_runs_caches_generated_payload_and_binary) ... ok
 test_all_numerical_scenes_and_distances_use_image_program (test_raster_vm.ArrayProgramTests.test_all_numerical_scenes_and_distances_use_image_program) ... ok
 test_arbitrary_allowed_program_executes_order_without_optical_dispatch (test_raster_vm.ArrayProgramTests.test_arbitrary_allowed_program_executes_order_without_optical_dispatch) ... ok
 test_edit_encoded_instruction_changes_output_with_runtime_unchanged (test_raster_vm.ArrayProgramTests.test_edit_encoded_instruction_changes_output_with_runtime_unchanged) ... ok
@@ -33,6 +59,6 @@ test_replay_refuses_existing_outputs_and_leaves_source_unchanged (test_raster_vm
 test_vm_transfer_matches_analytic_plane_waves_both_signs_and_zero (test_raster_vm.ArrayProgramTests.test_vm_transfer_matches_analytic_plane_waves_both_signs_and_zero) ... ok
 
 ----------------------------------------------------------------------
-Ran 33 tests in 4.363s
+Ran 59 tests in 16.764s
 
 OK

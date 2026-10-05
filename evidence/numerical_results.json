@@ -1,6 +1,6 @@
 {
   "schema": "photon-pretzel/numerical-evidence/1",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "acceptance_frozen_in_source": {
     "relative_complex_l2_max": 0.001,
     "plane_wave_max_abs": 1e-08,

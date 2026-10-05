@@ -1,0 +1,61 @@
+{
+  "version": "0.4.0",
+  "module_sha256": "6638cfed6fb7cc877b495d714b8437cc8d04d46cb5ab52eb4ba5f9d38c75e4a9",
+  "comparison": "C# radix-2 array machine against independent NumPy FFT interpreter",
+  "tolerance": {
+    "rtol": 2e-10,
+    "atol": 1e-08
+  },
+  "cases": [
+    {
+      "scene": "training",
+      "distance_m": -0.02,
+      "max_abs_error_against_numpy": 3.4568409568856377e-15,
+      "native_result_sha256": "3bb2d32cd67e99a84d876bb6d0923055fd69a697e4585c226d807a76edb87b7c"
+    },
+    {
+      "scene": "training",
+      "distance_m": 0,
+      "max_abs_error_against_numpy": 5.2376761754561946e-15,
+      "native_result_sha256": "0fd6bf0c5591519b3074fdff7664423ee4e0eb0474926be393a5bc7503d4e074"
+    },
+    {
+      "scene": "training",
+      "distance_m": 0.01,
+      "max_abs_error_against_numpy": 3.774758287039915e-15,
+      "native_result_sha256": "d1599aaab84cb8aa20d861abee4fa8c7e5e11fe2ff7f83eb53509046cce446fc"
+    },
+    {
+      "scene": "training",
+      "distance_m": 0.02,
+      "max_abs_error_against_numpy": 3.7797604295342924e-15,
+      "native_result_sha256": "6e09ee8ead226f253b9327b60908c455603134a0791186774197bd8df77b2bce"
+    },
+    {
+      "scene": "holdout",
+      "distance_m": -0.02,
+      "max_abs_error_against_numpy": 3.929293797040855e-15,
+      "native_result_sha256": "b6fcaf37822eedcfc3faa32de842bc9192102e13778d2b6ce7429a253268043e"
+    },
+    {
+      "scene": "holdout",
+      "distance_m": 0,
+      "max_abs_error_against_numpy": 5.225349299601918e-15,
+      "native_result_sha256": "ec09b8e991487fd283860827fa420a5276de64e18fd747ff4b9ea5c788ebe5bf"
+    },
+    {
+      "scene": "holdout",
+      "distance_m": 0.01,
+      "max_abs_error_against_numpy": 4.224493242358114e-15,
+      "native_result_sha256": "ec08c7a11ad7bfee0a1c96015bd89ed4379b0f78f840597d496ad672e4aa947f"
+    },
+    {
+      "scene": "holdout",
+      "distance_m": 0.02,
+      "max_abs_error_against_numpy": 4.0163186484646984e-15,
+      "native_result_sha256": "01195ee654395d4c49da39060f22b6cd2f69650f3b694467b52945516e6cab2e"
+    }
+  ],
+  "all_pass": true,
+  "additional_test_suites": "15 analytic plane-wave cases and 20 random permitted programs in tests/test_native.py"
+}

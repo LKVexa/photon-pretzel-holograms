@@ -1,6 +1,6 @@
 {
   "schema": "photon-pretzel/executable-evidence/1",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "source": "exact uint16 sensor samples and operator DAG decoded from pixel cells",
   "machine": "host CPU bounded straight-line array interpreter",
   "cases": [

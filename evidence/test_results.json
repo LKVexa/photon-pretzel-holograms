@@ -1,8 +1,8 @@
 {
   "schema": "photon-pretzel/test-evidence/1",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "command": "python -B verify.py",
-  "tests": 33,
+  "tests": 59,
   "failures": 0,
   "errors": 0,
   "skips": 0,
@@ -11,14 +11,21 @@
   "platform": "Windows",
   "numpy": "2.3.5",
   "pillow": "12.3.0",
-  "elapsed_seconds": 4.3632,
+  "elapsed_seconds": 16.7644,
   "scope": "Local software, numerical model, reader and CLI tests; no physical or full-workstream qualification",
   "source_sha256": {
-    "optics.py": "80f61492206a99f705b70ebb0daa76305fa6c3dd81d84f21e9bd985511e83e35",
-    "raster_vm.py": "2dadbe009b1a457fa3274664b560f64ea8958af7986136c6da422011c4afa2f1",
+    "optics.py": "122d975f5697e1bcb9342d88e67c065389c848c476394868ffd1c1647c957bac",
+    "raster_vm.py": "ea32196c89effdd931fb1afa67a88c945f7db10c1737061e26f0fc2fe877cdd3",
     "run.py": "2c55ddd1b709016fee7c5c9291a22abbdd8143a998f78b372c265d8a8734a815",
     "tests/test_optics.py": "354a6a446ed585212ee1df2bb37161946c7a51f9ff1f8e7d2e2d9fa33262e3dd",
     "tests/test_raster_vm.py": "b9b88ff005d99224eae44d65cf980ba0460011294496108128adcb2289c39944",
-    "verify.py": "169da211b4cac1d0264b703f3ddd874d3c2a193a9234136ad79bd44f5bf3ae4d"
+    "tests/test_native.py": "c190ab676f4174ed533e6644311da9b87b36c18ecbc2012c0f18adbaa00b38c9",
+    "tests/test_package_release.py": "20abc51bdebe6ed99bb1f89c1f11a4fefc8a88d4fca7ceebb550dcb0c8b503e0",
+    "dotnet/ArrayRuntime/Machine.cs": "2f612dc55d304062de00180ca0088e1c15a82b56b7bf1b53af1278961e33a35c",
+    "dotnet/OpticalPlayer/Carrier.cs": "5a5376bcc71436cfec79f466fdd9e60951244ac0e42168ae4ce24071653d26ee",
+    "dotnet/OpticalPlayer/Program.cs": "0fe896bd3e8bb967a5819506bed5ee2fc60fed7efccb6f18f0e39ff050e2ef73",
+    "dotnet/OpticalPlayer/ImagePreflight.cs": "951fa8856e31878150ad24c36537a1db98d2d3d7dfc710740e6bdc5834957445",
+    "package_release.py": "4819773680eb78eb61ea97c1afd576fc355002f2debc5e79fd9cd735389fc7d7",
+    "verify.py": "7c62089ad1546fa39fa9ed10b4e66cc6e63bcb953f08769f7454c6203ac3df65"
   }
 }
