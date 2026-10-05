@@ -1,0 +1,88 @@
+{
+  "edit": {
+    "append_scale": 0.5
+  },
+  "execution": {
+    "carriers": {
+      "processing.gif": {
+        "frames_checked": 2,
+        "result_exact": true,
+        "sha256": "107b9fcec410c87ca53072d25aafdbd06ad874d49fd5629276b7be932e1e8e3e"
+      },
+      "processing.tiff": {
+        "frames_checked": 2,
+        "result_exact": true,
+        "sha256": "be8998b7f7a2f63f7a536dbc819fae3d69a16d956db963c7de798f37a5e39051"
+      }
+    },
+    "computation_location": "host CPU bounded array interpreter",
+    "instruction_count": 11,
+    "program_sha256": "8b9b45f02bfac22393d3110b1d21f2ace3c8cdb62334e49b4cdf891c9f73ef05",
+    "result_sha256": "59fc0501fc44bafa60ce848dd99e438f44d11a116a085f5303eceb48ddb682f0",
+    "trace": [
+      {
+        "id": "intensity",
+        "op": "scale",
+        "sha256": "79403b43f0c9c26fffa75d8202431605dfba064b067cd6550cbe129161d32c69"
+      },
+      {
+        "id": "spectrum",
+        "op": "fft2",
+        "sha256": "f26c9a543d294af9940323efb2c1a4ac1187346ad12904406a5384834384f925"
+      },
+      {
+        "id": "shifted",
+        "op": "roll",
+        "sha256": "6e53e1155e5f27ac2f3e7c9003813a4dc07daca64230cc5e1f98c6fc1b8e3d15"
+      },
+      {
+        "id": "aperture",
+        "op": "disk",
+        "sha256": "603193bec1aed111f1b52a2e1f215a1a6dc5818a6d96e11d1a61c7a65d9aae06"
+      },
+      {
+        "id": "selected",
+        "op": "multiply",
+        "sha256": "ec85f32576a2c6413b75f3c603911f7a0ff234069cc067a52e24a9877115495d"
+      },
+      {
+        "id": "sensor_field",
+        "op": "ifft2",
+        "sha256": "a850b5694dbe3d06f04fcf7ee2ba6bb877c4e76af720478c270433bd9124de7c"
+      },
+      {
+        "id": "transfer",
+        "op": "transfer",
+        "sha256": "ae2e5f3808a6aaa11a6b0994ab1e6e78247c4eacaaa228d30dc1d8184f99bb19"
+      },
+      {
+        "id": "field_fft",
+        "op": "fft2",
+        "sha256": "83e57984320a10e9cab87cac7c8028915280b26a2c27bb8f6ba045974aabddea"
+      },
+      {
+        "id": "propagated_fft",
+        "op": "multiply",
+        "sha256": "3d448ffec36d4a1dd3880465896bf38780abf72a3f552d796f5039daa68afb19"
+      },
+      {
+        "id": "field",
+        "op": "ifft2",
+        "sha256": "7263c4c6a93933035f95e94ec92078d21b9ffd4472d8913164d4dff22d063f2c"
+      },
+      {
+        "id": "gain_0",
+        "op": "scale",
+        "sha256": "59fc0501fc44bafa60ce848dd99e438f44d11a116a085f5303eceb48ddb682f0"
+      }
+    ]
+  },
+  "operation": "edit-carrier",
+  "original_result_sha256": "7263c4c6a93933035f95e94ec92078d21b9ffd4472d8913164d4dff22d063f2c",
+  "output_changed": true,
+  "runtime_unchanged": true,
+  "source_file_preserved": true,
+  "source_frames_checked": 2,
+  "source_sha256": "d94df4ca422031dda26d4ba9f191d60912255d8ba3a897e13b7df63295b6a5de",
+  "version": "0.3.0"
+}
