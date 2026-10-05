@@ -1,0 +1,30 @@
+{
+  "schema": "photon-pretzel/executable-evidence/1",
+  "version": "0.3.0",
+  "source": "exact uint16 sensor samples and operator DAG decoded from pixel cells",
+  "machine": "host CPU bounded straight-line array interpreter",
+  "cases": [
+    {
+      "format": "gif",
+      "frames_checked": 2,
+      "original_result_sha256": "7263c4c6a93933035f95e94ec92078d21b9ffd4472d8913164d4dff22d063f2c",
+      "replayed_result_sha256": "7263c4c6a93933035f95e94ec92078d21b9ffd4472d8913164d4dff22d063f2c",
+      "edited_result_sha256": "59fc0501fc44bafa60ce848dd99e438f44d11a116a085f5303eceb48ddb682f0",
+      "edited_replay_sha256": "59fc0501fc44bafa60ce848dd99e438f44d11a116a085f5303eceb48ddb682f0",
+      "output_changed": true,
+      "runtime_unchanged": true
+    },
+    {
+      "format": "tiff",
+      "frames_checked": 2,
+      "original_result_sha256": "7263c4c6a93933035f95e94ec92078d21b9ffd4472d8913164d4dff22d063f2c",
+      "replayed_result_sha256": "7263c4c6a93933035f95e94ec92078d21b9ffd4472d8913164d4dff22d063f2c",
+      "edited_result_sha256": "59fc0501fc44bafa60ce848dd99e438f44d11a116a085f5303eceb48ddb682f0",
+      "edited_replay_sha256": "59fc0501fc44bafa60ce848dd99e438f44d11a116a085f5303eceb48ddb682f0",
+      "output_changed": true,
+      "runtime_unchanged": true
+    }
+  ],
+  "edit": "append scale(output,0.5), same interpreter; field halves, intensity quarters",
+  "all_pass": true
+}

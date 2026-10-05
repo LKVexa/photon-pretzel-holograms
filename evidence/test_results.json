@@ -1,0 +1,24 @@
+{
+  "schema": "photon-pretzel/test-evidence/1",
+  "version": "0.3.0",
+  "command": "python -B verify.py",
+  "tests": 33,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "passed": true,
+  "python": "3.12.14",
+  "platform": "Windows",
+  "numpy": "2.3.5",
+  "pillow": "12.3.0",
+  "elapsed_seconds": 4.3632,
+  "scope": "Local software, numerical model, reader and CLI tests; no physical or full-workstream qualification",
+  "source_sha256": {
+    "optics.py": "80f61492206a99f705b70ebb0daa76305fa6c3dd81d84f21e9bd985511e83e35",
+    "raster_vm.py": "2dadbe009b1a457fa3274664b560f64ea8958af7986136c6da422011c4afa2f1",
+    "run.py": "2c55ddd1b709016fee7c5c9291a22abbdd8143a998f78b372c265d8a8734a815",
+    "tests/test_optics.py": "354a6a446ed585212ee1df2bb37161946c7a51f9ff1f8e7d2e2d9fa33262e3dd",
+    "tests/test_raster_vm.py": "b9b88ff005d99224eae44d65cf980ba0460011294496108128adcb2289c39944",
+    "verify.py": "169da211b4cac1d0264b703f3ddd874d3c2a193a9234136ad79bd44f5bf3ae4d"
+  }
+}

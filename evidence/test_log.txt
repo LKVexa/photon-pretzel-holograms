@@ -1,0 +1,38 @@
+test_analytic_plane_waves_both_directions_and_zero (test_optics.OpticalTests.test_analytic_plane_waves_both_directions_and_zero) ... ok
+test_cli_generate_inspect_reconstruct_and_error_exit (test_optics.OpticalTests.test_cli_generate_inspect_reconstruct_and_error_exit) ... ok
+test_executable_gif_tiff_every_frame_and_reexecution (test_optics.OpticalTests.test_executable_gif_tiff_every_frame_and_reexecution) ... ok
+test_generated_assets_and_reconstruction_preserve_source (test_optics.OpticalTests.test_generated_assets_and_reconstruction_preserve_source) ... ok
+test_raster_checksum_damage_dimensions_and_program_boundaries (test_optics.OpticalTests.test_raster_checksum_damage_dimensions_and_program_boundaries) ... ok
+test_reader_accepts_big_endian_unsigned_samples (test_optics.OpticalTests.test_reader_accepts_big_endian_unsigned_samples) ... ok
+test_refuse_existing_outputs_and_input_alias (test_optics.OpticalTests.test_refuse_existing_outputs_and_input_alias) ... ok
+test_reject_bad_scale (test_optics.OpticalTests.test_reject_bad_scale) ... ok
+test_reject_float_or_boolean_frequency_bins (test_optics.OpticalTests.test_reject_float_or_boolean_frequency_bins) ... ok
+test_reject_inconsistent_frame_programs_and_frame_limit (test_optics.OpticalTests.test_reject_inconsistent_frame_programs_and_frame_limit) ... ok
+test_reject_invalid_fields_including_int_min_overflow (test_optics.OpticalTests.test_reject_invalid_fields_including_int_min_overflow) ... ok
+test_reject_metadata_duplicates_nonfinite_deep_and_oversize (test_optics.OpticalTests.test_reject_metadata_duplicates_nonfinite_deep_and_oversize) ... ok
+test_reject_multiframe_and_wrong_image_types (test_optics.OpticalTests.test_reject_multiframe_and_wrong_image_types) ... ok
+test_reject_nonfinite_or_out_of_profile_parameters (test_optics.OpticalTests.test_reject_nonfinite_or_out_of_profile_parameters) ... ok
+test_reject_physical_claim_and_unknown_fields (test_optics.OpticalTests.test_reject_physical_claim_and_unknown_fields) ... ok
+test_reject_sample_shape_and_dtype (test_optics.OpticalTests.test_reject_sample_shape_and_dtype) ... ok
+test_reject_truncated_or_oversize_files (test_optics.OpticalTests.test_reject_truncated_or_oversize_files) ... ok
+test_sample_and_metadata_tiff_roundtrip (test_optics.OpticalTests.test_sample_and_metadata_tiff_roundtrip) ... ok
+test_training_and_holdout_quantized_reconstruction (test_optics.OpticalTests.test_training_and_holdout_quantized_reconstruction) ... ok
+test_zero_distance_exact_identity_and_copy (test_optics.OpticalTests.test_zero_distance_exact_identity_and_copy) ... ok
+test_zero_hologram_is_finite_without_quality_claim (test_optics.OpticalTests.test_zero_hologram_is_finite_without_quality_claim) ... ok
+test_all_numerical_scenes_and_distances_use_image_program (test_raster_vm.ArrayProgramTests.test_all_numerical_scenes_and_distances_use_image_program) ... ok
+test_arbitrary_allowed_program_executes_order_without_optical_dispatch (test_raster_vm.ArrayProgramTests.test_arbitrary_allowed_program_executes_order_without_optical_dispatch) ... ok
+test_edit_encoded_instruction_changes_output_with_runtime_unchanged (test_raster_vm.ArrayProgramTests.test_edit_encoded_instruction_changes_output_with_runtime_unchanged) ... ok
+test_encoded_input_changes_output_and_no_external_files_are_needed (test_raster_vm.ArrayProgramTests.test_encoded_input_changes_output_and_no_external_files_are_needed) ... ok
+test_mask_and_propagation_edits_affect_result (test_raster_vm.ArrayProgramTests.test_mask_and_propagation_edits_affect_result) ... ok
+test_program_is_entire_computation_no_scene_or_hidden_reconstructor (test_raster_vm.ArrayProgramTests.test_program_is_entire_computation_no_scene_or_hidden_reconstructor) ... ok
+test_reject_arithmetic_growth_before_output_creation (test_raster_vm.ArrayProgramTests.test_reject_arithmetic_growth_before_output_creation) ... ok
+test_reject_budget_shape_input_and_scalar_type_violations (test_raster_vm.ArrayProgramTests.test_reject_budget_shape_input_and_scalar_type_violations) ... ok
+test_reject_packet_header_length_noncanonical_and_deep_payloads (test_raster_vm.ArrayProgramTests.test_reject_packet_header_length_noncanonical_and_deep_payloads) ... ok
+test_reject_unknown_ops_fields_forward_refs_duplicate_ids_and_bad_output (test_raster_vm.ArrayProgramTests.test_reject_unknown_ops_fields_forward_refs_duplicate_ids_and_bad_output) ... ok
+test_replay_refuses_existing_outputs_and_leaves_source_unchanged (test_raster_vm.ArrayProgramTests.test_replay_refuses_existing_outputs_and_leaves_source_unchanged) ... ok
+test_vm_transfer_matches_analytic_plane_waves_both_signs_and_zero (test_raster_vm.ArrayProgramTests.test_vm_transfer_matches_analytic_plane_waves_both_signs_and_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 4.363s
+
+OK
