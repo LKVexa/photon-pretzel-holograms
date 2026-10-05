@@ -1,0 +1,121 @@
+{
+  "schema": "photon-pretzel/audit/1",
+  "version": "0.3.0",
+  "license": "GPL-3.0-only",
+  "scope": "Standalone optical and executable-image array-interpreter audit, bounded input hardening and local numerical/CLI/program-edit tests. No physical qualification, comprehensive security certification or full Penteract conformance.",
+  "baseline": "Optical kernel from TIFF/GIF Compute Lab 0.1.0 research demonstration; no private workflow archives or runtimes are included.",
+  "findings": [
+    {
+      "id": "OPT-001",
+      "severity": "high",
+      "finding": "Demodulation previously accepted signed, floating-point or negative sample arrays.",
+      "fix": "Require exactly 128 by 128 unsigned 16-bit samples, including TIFF mode validation.",
+      "status": "FIXED",
+      "evidence": "tests/test_optics.py:test_reject_sample_shape_and_dtype"
+    },
+    {
+      "id": "OPT-002",
+      "severity": "high",
+      "finding": "Metadata handling lacked a closed schema, duplicate-key rejection and complete typed bounds.",
+      "fix": "Bound ASCII metadata to 2048 bytes; reject duplicate or unknown keys, nonfinite scale, wrong integer bins and physical-measurement claims.",
+      "status": "FIXED",
+      "evidence": "tests/test_optics.py:test_reject_metadata_duplicates_nonfinite_deep_and_oversize"
+    },
+    {
+      "id": "OPT-003",
+      "severity": "high",
+      "finding": "Reading a source again after writing output could bind the output as its own input or overwrite user source files.",
+      "fix": "Hash one bounded immutable source-byte snapshot. Require new output directories and create-only TIFF writes.",
+      "status": "FIXED",
+      "evidence": "tests/test_optics.py:test_refuse_existing_outputs_and_input_alias"
+    },
+    {
+      "id": "OPT-004",
+      "severity": "medium",
+      "finding": "Full TIFF frame counting can walk a long attacker-controlled IFD chain.",
+      "fix": "Probe only a second TIFF plane and reject it, before decoding samples.",
+      "status": "FIXED",
+      "evidence": "tests/test_optics.py:test_reject_multiframe_and_wrong_image_types"
+    },
+    {
+      "id": "OPT-005",
+      "severity": "medium",
+      "finding": "An int64 minimum value can overflow its own absolute value and bypass an integer field-amplitude bound.",
+      "fix": "Convert already type/shape/finite-checked fields to complex128 before evaluating the amplitude bound.",
+      "status": "FIXED",
+      "evidence": "tests/test_optics.py:test_reject_invalid_fields_including_int_min_overflow"
+    },
+    {
+      "id": "OPT-006",
+      "severity": "medium",
+      "finding": "A display reconstructed from the original complex field can hide quantization-path defects.",
+      "fix": "Use the reloaded TIFF samples for demodulation, numerical reconstruction and GIF propagation views.",
+      "status": "FIXED",
+      "evidence": "tests/test_optics.py:test_generated_assets_and_reconstruction_preserve_source"
+    },
+    {
+      "id": "OPT-007",
+      "severity": "medium",
+      "finding": "A standalone extraction could accidentally retain local workspace paths or unrelated runtime dependencies.",
+      "fix": "Keep only optics code, portable CLI, requirements and generated assets. Receipts use relative names and byte hashes; no bundled runtime.",
+      "status": "FIXED",
+      "evidence": "README.md"
+    },
+    {
+      "id": "OPT-008",
+      "severity": "medium",
+      "finding": "Exporting a visualization alone would lose the original processable TIFF/GIF goal.",
+      "fix": "v0.2 carried a scene-selector job; its insufficient executable semantics are replaced by OPT-009 in v0.3.",
+      "status": "SUPERSEDED_BY_OPT_009",
+      "evidence": "CHANGELOG.md"
+    },
+    {
+      "id": "OPT-009",
+      "severity": "high",
+      "finding": "A scene-selector job replayed a fixed host routine, so the image did not carry the computation itself.",
+      "fix": "The v0.3 pixel payload contains exact sensor samples and a validated operator DAG specifying all operators, order, operands, parameters and output; replay uses only the bounded array interpreter.",
+      "status": "FIXED",
+      "evidence": "tests/test_raster_vm.py:test_program_is_entire_computation_no_scene_or_hidden_reconstructor"
+    },
+    {
+      "id": "OPT-010",
+      "severity": "high",
+      "finding": "Executable program support introduces arbitrary graph, resource-growth and malformed-reference risks.",
+      "fix": "Use a closed eight-opcode ISA, fixed arrays, 24 instructions, earlier references only, strict scalar/type bounds, finite intermediate magnitude cap, canonical packets and exact input size. No filesystem, network, imports, shell, Python evaluation, loops or callbacks are executable operations.",
+      "status": "FIXED",
+      "evidence": "tests/test_raster_vm.py:test_reject_unknown_ops_fields_forward_refs_duplicate_ids_and_bad_output"
+    },
+    {
+      "id": "OPT-011",
+      "severity": "medium",
+      "finding": "A fixed display normalization could conceal whether instruction edits changed numerical output.",
+      "fix": "The output panel uses a fixed [0,1] intensity display range; tests verify half-gain instruction produces half field, visible changed pixels, quarter intensity and unchanged runtime.",
+      "status": "FIXED",
+      "evidence": "tests/test_raster_vm.py:test_edit_encoded_instruction_changes_output_with_runtime_unchanged"
+    },
+    {
+      "id": "OPT-012",
+      "severity": "high",
+      "finding": "Refreshed exports could silently lose executable semantics or reference external input data.",
+      "fix": "Every GIF/TIFF frame carries the whole graph and sensor samples. Export decodes and executes each format and checks exact output. Tests replay refreshed and edited exports and alter embedded input without sidecars.",
+      "status": "FIXED",
+      "evidence": "tests/test_optics.py:test_executable_gif_tiff_every_frame_and_reexecution"
+    }
+  ],
+  "tests": {
+    "command": "python -B verify.py",
+    "summary": "evidence/test_results.json",
+    "raw_log": "evidence/test_log.txt",
+    "numerical_metrics": "evidence/numerical_results.json",
+    "executable_metrics": "evidence/executable_results.json"
+  },
+  "remaining_limits": [
+    "The synthetic reference is a fixed 128 by 128 periodic scalar optical model. The generic array interpreter admits bounded graph edits; edited programs do not inherit reconstruction accuracy claims.",
+    "No hardware, measured calibration, physical reconstruction or device-ready output.",
+    "Arbitrary valid TIFF targets have no ground-truth quality assessment.",
+    "Pillow remains an external parser dependency; no claim of exhaustive hostile-input proof.",
+    "Failed new runs can leave partial files in their new output directory; previous runs and source files are not replaced.",
+    "Local recorded execution is Windows/Python 3.12; other platform claims require their own observed CI results.",
+    "Historical v0.2 job carriers and old display-only baselines remain explicitly labeled; the v0.3 loader rejects their old payload format."
+  ]
+}
