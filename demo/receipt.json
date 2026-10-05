@@ -1,0 +1,11 @@
+{
+  "hologram_file": "hologram_uint16.tiff",
+  "hologram_sha256": "4abf674734e3baaebe359dcc5c7fa43e7df4e6fb000e71cf2cccb86ddf1efdce",
+  "operation": "generate",
+  "relative_complex_l2_error": 1.857534186601529e-05,
+  "sample_roundtrip_exact": true,
+  "scene": "training",
+  "simulation_only": true,
+  "threshold": 0.001,
+  "version": "0.2.0"
+}
