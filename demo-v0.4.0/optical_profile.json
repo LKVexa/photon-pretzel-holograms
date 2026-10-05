@@ -1,0 +1,29 @@
+{
+  "acceptance": {
+    "plane_wave_max_abs": 1e-08,
+    "relative_complex_l2_max": 0.001,
+    "zero_distance_max_abs": 1e-12
+  },
+  "axes": "array[y,x]; metres; target z=0; sensor z=distance_m",
+  "boundary": "periodic finite grid; no padding or crop; no device aperture",
+  "device_ready": false,
+  "evanescent": "discard for nonzero z; exact identity at z=0; not present in this fixed pitch/wavelength envelope",
+  "fft": "forward unnormalized; inverse 1/N^2; unshifted order",
+  "harmonic_convention": "exp(-i*omega*t)",
+  "medium_index": 1,
+  "params": {
+    "band_bins": 10,
+    "carrier_bin": 40,
+    "distance_m": 0.01,
+    "pitch_m": 8e-06,
+    "size": 128,
+    "wavelength_m": 5.32e-07
+  },
+  "profile": "photon-pretzel/off-axis/1",
+  "propagator": "exp(+i*2*pi*z*sqrt(1/lambda^2-fx^2-fy^2))",
+  "quantization": "uint16 intensity; nearest ties-to-even; no clipping",
+  "scope": "Discrete periodic scalar model only; not continuous free-space or device qualification",
+  "simulation_only": true,
+  "spectral_support": "object radius10 bins; reference +40 x-bin; selected sideband -40",
+  "version": "0.4.0"
+}

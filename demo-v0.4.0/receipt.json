@@ -1,0 +1,82 @@
+{
+  "execution": {
+    "carriers": {
+      "processing.gif": {
+        "frames_checked": 2,
+        "result_exact": true,
+        "sha256": "9eac8b7718fbd54fcc5aa5de67a6438d32f08293d860e0e64f5efdad45ea579e"
+      },
+      "processing.tiff": {
+        "frames_checked": 2,
+        "result_exact": true,
+        "sha256": "446d9a677a34c6339c686216c0987c075b91cafb1cdf7e5373af6850bfb553f7"
+      }
+    },
+    "computation_location": "NumPy independent reference interpreter; packaged C# reader executes pixel-carried module",
+    "instruction_count": 10,
+    "program_sha256": "9e9a7c31beb2078716468553d896f43aca9c738894fe08bc6b978a7e1c73503b",
+    "result_sha256": "7263c4c6a93933035f95e94ec92078d21b9ffd4472d8913164d4dff22d063f2c",
+    "runtime_sha256": "6638cfed6fb7cc877b495d714b8437cc8d04d46cb5ab52eb4ba5f9d38c75e4a9",
+    "trace": [
+      {
+        "id": "intensity",
+        "op": "scale",
+        "sha256": "79403b43f0c9c26fffa75d8202431605dfba064b067cd6550cbe129161d32c69"
+      },
+      {
+        "id": "spectrum",
+        "op": "fft2",
+        "sha256": "f26c9a543d294af9940323efb2c1a4ac1187346ad12904406a5384834384f925"
+      },
+      {
+        "id": "shifted",
+        "op": "roll",
+        "sha256": "6e53e1155e5f27ac2f3e7c9003813a4dc07daca64230cc5e1f98c6fc1b8e3d15"
+      },
+      {
+        "id": "aperture",
+        "op": "disk",
+        "sha256": "603193bec1aed111f1b52a2e1f215a1a6dc5818a6d96e11d1a61c7a65d9aae06"
+      },
+      {
+        "id": "selected",
+        "op": "multiply",
+        "sha256": "ec85f32576a2c6413b75f3c603911f7a0ff234069cc067a52e24a9877115495d"
+      },
+      {
+        "id": "sensor_field",
+        "op": "ifft2",
+        "sha256": "a850b5694dbe3d06f04fcf7ee2ba6bb877c4e76af720478c270433bd9124de7c"
+      },
+      {
+        "id": "transfer",
+        "op": "transfer",
+        "sha256": "ae2e5f3808a6aaa11a6b0994ab1e6e78247c4eacaaa228d30dc1d8184f99bb19"
+      },
+      {
+        "id": "field_fft",
+        "op": "fft2",
+        "sha256": "83e57984320a10e9cab87cac7c8028915280b26a2c27bb8f6ba045974aabddea"
+      },
+      {
+        "id": "propagated_fft",
+        "op": "multiply",
+        "sha256": "3d448ffec36d4a1dd3880465896bf38780abf72a3f552d796f5039daa68afb19"
+      },
+      {
+        "id": "field",
+        "op": "ifft2",
+        "sha256": "7263c4c6a93933035f95e94ec92078d21b9ffd4472d8913164d4dff22d063f2c"
+      }
+    ]
+  },
+  "hologram_file": "hologram_uint16.tiff",
+  "hologram_sha256": "4abf674734e3baaebe359dcc5c7fa43e7df4e6fb000e71cf2cccb86ddf1efdce",
+  "operation": "generate",
+  "relative_complex_l2_error": 1.857534186601529e-05,
+  "sample_roundtrip_exact": true,
+  "scene": "training",
+  "simulation_only": true,
+  "threshold": 0.001,
+  "version": "0.4.0"
+}
