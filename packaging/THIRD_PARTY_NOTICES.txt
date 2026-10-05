@@ -1,0 +1,9 @@
+Photon Pretzel original application, runtime module, scripts and project
+assets: GPL-3.0-only; full license and corresponding source included.
+
+Microsoft .NET and Windows Desktop Runtime: MIT and upstream third-party
+components. Exact runtime package licenses and notices are included in
+licenses/, DOTNET-LICENSE.txt and DOTNET-THIRD-PARTY-NOTICES.txt.
+
+NumPy and Pillow are development/reference dependencies, not shipped inside
+the Windows reader. Consult their upstream licenses when redistributing them.
