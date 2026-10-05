@@ -1,0 +1,65 @@
+{
+  "version": "0.4.0",
+  "result_sha256": "e9f84c52e77657d0263c26a0ec51e794d230f91082c4537a6d9ac7e884ad9930",
+  "trace": [
+    {
+      "id": "intensity",
+      "op": "scale",
+      "sha256": "79403b43f0c9c26fffa75d8202431605dfba064b067cd6550cbe129161d32c69"
+    },
+    {
+      "id": "spectrum",
+      "op": "fft2",
+      "sha256": "ff520da1deb56642e611399a5caac5bd2a1528adb6b15c6f74e5db6dd8103495"
+    },
+    {
+      "id": "shifted",
+      "op": "roll",
+      "sha256": "7e382699be6f74c0a23f49985af3fbcda7242652c84f9188ccfa9bc207526400"
+    },
+    {
+      "id": "aperture",
+      "op": "disk",
+      "sha256": "603193bec1aed111f1b52a2e1f215a1a6dc5818a6d96e11d1a61c7a65d9aae06"
+    },
+    {
+      "id": "selected",
+      "op": "multiply",
+      "sha256": "9337763909304de071884386b014a21c786061743d7f0870bf90c73182021879"
+    },
+    {
+      "id": "sensor_field",
+      "op": "ifft2",
+      "sha256": "79a5ca23ce6e630f07df7e44d12d8b1a22b0b1739761bd86e6f1dbdd870f3c5d"
+    },
+    {
+      "id": "transfer",
+      "op": "transfer",
+      "sha256": "ae2e5f3808a6aaa11a6b0994ab1e6e78247c4eacaaa228d30dc1d8184f99bb19"
+    },
+    {
+      "id": "field_fft",
+      "op": "fft2",
+      "sha256": "e273cb9e34b88d26e61b2818e552f8db7f256f8df2e1845a88090c97021ea28a"
+    },
+    {
+      "id": "propagated_fft",
+      "op": "multiply",
+      "sha256": "15e98959cbe69075287aa2de30b90e7fa07668423d0857b4d5a3c29e898dc2b8"
+    },
+    {
+      "id": "field",
+      "op": "ifft2",
+      "sha256": "d1599aaab84cb8aa20d861abee4fa8c7e5e11fe2ff7f83eb53509046cce446fc"
+    },
+    {
+      "id": "gain_0",
+      "op": "scale",
+      "sha256": "e9f84c52e77657d0263c26a0ec51e794d230f91082c4537a6d9ac7e884ad9930"
+    }
+  ],
+  "runtime_sha256": "6638cfed6fb7cc877b495d714b8437cc8d04d46cb5ab52eb4ba5f9d38c75e4a9",
+  "runtime_source": "approved module recovered from image pixels",
+  "computation_location": "host CPU",
+  "simulation_only": true
+}
